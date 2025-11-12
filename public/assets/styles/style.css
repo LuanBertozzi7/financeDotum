@@ -1,0 +1,233 @@
+@import url(/assets/styles/fonts.css);
+
+*,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+:root {
+  /* cores e estilos */
+  --default-font-family: "Roboto", sans-serif;
+
+  --bg-color: #1e2139; /* FUNDO */
+  --accent-color: #7c5dfa; /* DESTAQUES */
+  --text-color: #dfe3fa; /* DETALHES */
+
+  --paid-color: #33d69f; /* PAGO */
+  --pending-color: #ff8f00; /* PENDENTE */
+  --draft-color: #373b53; /* RASCUNHO */
+}
+
+body {
+  background-color: var(--bg-color);
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+#container {
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 2rem;
+}
+
+/* ==== Header ==== */
+
+header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.section-left h1 {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 0.2rem;
+}
+
+.section-left p {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.new-bill {
+  background-color: var(--accent-color);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 0.8rem 1.4rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.new-bill:hover {
+  opacity: 0.9;
+}
+
+/* ===== Main ===== */
+
+main {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Card genérico das contas */
+.invoice-card {
+  background-color: #252945;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.invoice-card:hover {
+  background-color: #2b2f55;
+}
+
+.invoice-card .id {
+  font-weight: bold;
+  color: white;
+}
+
+.invoice-card .date,
+.invoice-card .name {
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.invoice-card .amount {
+  font-weight: bold;
+  color: white;
+  text-align: right;
+}
+
+/* status */
+.status {
+  text-transform: capitalize;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 0.3rem 0.8rem;
+  color: white;
+  text-align: center;
+}
+
+.status.paid {
+  background-color: var(--paid-color);
+}
+
+.status.pending {
+  background-color: var(--pending-color);
+}
+
+.status.draft {
+  background-color: var(--draft-color);
+}
+
+/* ==== MODAL ==== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none; /* começa invisível */
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background-color: #252945;
+  color: var(--text-color);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.modal-content label {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.modal-content input,
+.modal-content select {
+  background-color: #1e2139;
+  color: white;
+  border: 1px solid #373b53;
+  border-radius: 8px;
+  padding: 0.6rem;
+  font-size: 1rem;
+}
+
+.modal-content input:focus,
+.modal-content select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.form-buttons .cancel {
+  background-color: #373b53;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+}
+
+.form-buttons .save {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.form-buttons .cancel:hover,
+.form-buttons .save:hover {
+  opacity: 0.9;
+}
+
+/* Animação */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
