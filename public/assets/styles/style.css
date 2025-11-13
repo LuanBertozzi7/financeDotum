@@ -96,25 +96,25 @@ main {
   background-color: #2b2f55;
 }
 
-.invoice-card .id {
+.invoice-card .bill-id {
   font-weight: bold;
   color: white;
 }
 
-.invoice-card .date,
-.invoice-card .name {
+.invoice-card .bill-due-date,
+.invoice-card .bill-description {
   color: var(--text-color);
   font-size: 0.9rem;
 }
 
-.invoice-card .amount {
+.invoice-card .bill-amount {
   font-weight: bold;
   color: white;
   text-align: right;
 }
 
 /* status */
-.status {
+.bill-type {
   text-transform: capitalize;
   font-weight: bold;
   border-radius: 8px;
@@ -123,15 +123,15 @@ main {
   text-align: center;
 }
 
-.status.paid {
+.bill-type.payable {
   background-color: var(--paid-color);
 }
 
-.status.pending {
+.bill-type.receivable {
   background-color: var(--pending-color);
 }
 
-.status.draft {
+.bill-type {
   background-color: var(--draft-color);
 }
 
@@ -156,13 +156,24 @@ main {
   border-radius: 12px;
   width: 100%;
   max-width: 400px;
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
+  flex-direction: column !important;
   gap: 1rem;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
   animation: fadeIn 0.3s ease;
 }
 
+#new-account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 .modal-content h2 {
   color: white;
   text-align: center;

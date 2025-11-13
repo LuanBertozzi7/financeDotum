@@ -1,66 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | Dotum Finance</title>
+    <title>Home - Finance</title>
     <link rel="stylesheet" href="assets/styles/style.css" />
-    <script src="app.js" defer></script>
+    <script type="module" src="app.js"></script>
   </head>
   <body>
     <div id="container">
       <header>
         <nav class="section-left">
           <h1>Finance</h1>
-          <p>você tem XX contas a receber</p>
-          <p>e YY contas a pagar!</p>
+          <p>você tem <b>XX</b> contas a receber</p>
+          <p>e <b>YY</b> contas a pagar!</p>
         </nav>
         <nav class="section-right">
           <button class="new-bill">+ nova conta</button>
         </nav>
       </header>
-      <main>
-        <div class="invoice-card">
-          <p class="id">#RT3080</p>
-          <p class="date">Venc: 19 Ago 2025</p>
-          <p class="name">Conta de Luz</p>
-          <p class="amount">R$ 180,00</p>
-          <div class="status paid">Pago</div>
-        </div>
-
-        <div class="invoice-card">
-          <p class="id">#XM9141</p>
-          <p class="date">Venc: 20 Set 2025</p>
-          <p class="name">Internet</p>
-          <p class="amount">R$ 120,00</p>
-          <div class="status pending">Pendente</div>
-        </div>
-      </main>
+      <main id="bill-list"></main>
       <div class="modal" id="modal">
         <div class="modal-content">
           <h2>Finance</h2>
 
+          <!-- descrição -->
           <form id="new-account-form">
-            <label for="description">Descrição</label>
-            <input
-              type="text"
-              name="description"
-              id="description"
-              placeholder="Ex: internet - Netway"
-              required
-            />
-
-            <label for="type">Tipo</label>
-            <select name="type" id="type" required>
-              <option value="pay">A pagar</option>
-              <option value="receive">A receber</option>
-            </select>
-
-            <label for="value">Valor (R$)</label>
-            <input type="number" id="value" name="value" step="0.01" required />
-
-            <label for="due">Data de Vencimento</label>
-            <input type="date" id="due" name="due" required />
+            <div class="form-group">
+              <label for="bill-description">Descrição</label>
+              <input
+                type="text"
+                name="bill-description"
+                id="bill-description"
+                placeholder="descrição"
+                required
+              />
+            </div>
+            <!-- tipo - Pago:payable | Receber:receivable -->
+            <div class="form-group">
+              <label for="bill-type">Tipo</label>
+              <select name="bill-type" id="bill-type" required>
+                <option value="payable">A Pagar</option>
+                <option value="receivable">A receber</option>
+              </select>
+            </div>
+            <!-- valor  -->
+            <div class="form-group">
+              <label for="bill-amount">Valor (R$)</label>
+              <input
+                type="number"
+                id="bill-amount"
+                name="bill-amount"
+                step="1.00"
+                required
+              />
+            </div>
+            <!-- data -->
+            <div class="form-group">
+              <label for="bill-due-date">Data</label>
+              <input
+                type="date"
+                id="bill-due-date"
+                name="bill-due-date"
+                required
+              />
+            </div>
 
             <div class="form-buttons">
               <button type="button" class="cancel">Cancelar</button>
