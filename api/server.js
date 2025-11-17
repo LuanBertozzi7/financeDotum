@@ -7,11 +7,13 @@ const PORT = process.env.PORT || 8080;
 app.use(express.static("public"));
 
 // middleware Log
+app.get("/", (req, res) => {
+  res.send("Backend funcionando!");
+});
+
 app.use((req, res, next) => {
   console.log(`${req.url} - ${req.method} at ${req.requestTime}`);
   next();
 });
-
-
 
 export default app;
