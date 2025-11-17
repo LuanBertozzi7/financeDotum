@@ -5,29 +5,45 @@ const modal = document.getElementById("modal");
 const newBillBtn = document.querySelector(".new-bill");
 const cancelBtn = document.querySelector(".cancel");
 const form = document.getElementById("new-account-form");
-const billList = document.getElementById("bill-list");
+const billCardList = document.getElementById("bill-list");
 
 function renderBillCard(billData) {
   const card = document.createElement("div");
   card.classList.add("invoice-card");
 
   const billType = billData.type;
-  const statusClass = billType === "payable" ? "pendente" : "pago";
+  const statusClass = billType === "payable" ? "receivable" : "payable";
   const statusText = billType === "payable" ? "A Pagar" : "A Receber"; // Corrigido para consistência
 
   card.innerHTML = `
     <p class="bill-id">${billData.id}</p>
-    <p class="bill-due-date">Vencimento ${new Date(
+    <p class="bill-description">${billData.description}</p>
+    <p class="bill-due-date">Vencimento: ${new Date(
       billData.dueDate
     ).toLocaleDateString("pt-BR")}</p>
-    <p class="bill-description">${billData.description}</p>
     <p class="bill-amount">R$ ${Number(billData.amount).toFixed(2)}</p>
+    <div class="card-footer">
     <div class="bill-type ${statusClass}">
       ${statusText}
     </div>
+    <button class="delete-bill" aria-label="Excluir essa conta?">
+    <i class="bx bx-trash"></i>
+     </button>
+     </div>
   `;
 
-  billList.appendChild(card);
+  const deleteButton = card.querySelector(".delete-bill");
+  deleteButton.addEventListener("click", () => {
+    const confirmDelete = window.confirm("Tem certeza que deseja apagar?");
+
+    if (!confirmDelete) {
+      return;
+    }
+    bill.delete(billData.id);
+    card.remove();
+  });
+
+  billCardList.appendChild(card);
 }
 
 // Carrega as contas do localStorage e renderiza na tela

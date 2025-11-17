@@ -21,6 +21,15 @@ const bill = {
     // salva novamente no local storage
     localStorage.setItem("bills", JSON.stringify(bills));
   },
+
+  delete(id) {
+    // pega todas as contas
+    const bills = this.getAll();
+    // filtrar removendo a conta com o id
+    const filtered = bills.filter((bill) => bill.id !== id);
+    // salva no localStorage
+    localStorage.setItem("bills", JSON.stringify(filtered));
+  },
 };
 
 export default bill;
