@@ -4,4 +4,3 @@ export function openModal(modalElement) {
 export function closeModal(modalElement) {
   modalElement.style.display = "none";
 }
-
