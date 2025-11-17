@@ -13,13 +13,6 @@ const bill = {
     return data ? JSON.parse(data) : [];
   },
 
-  load() {
-    const bills = bill.getAll();
-    bills.forEach((billData) => {
-      renderBillCard(billData);
-    });
-  },
-
   save(newBill) {
     // pega todas as contas existente
     const bills = this.getAll();

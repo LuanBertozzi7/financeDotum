@@ -13,7 +13,7 @@ function renderBillCard(billData) {
 
   const billType = billData.type;
   const statusClass = billType === "payable" ? "pendente" : "pago";
-  const statusText = billType === "payable" ? "A Pagar" : "A Receber";
+  const statusText = billType === "payable" ? "A Pagar" : "A Receber"; // Corrigido para consistência
 
   card.innerHTML = `
     <p class="bill-id">${billData.id}</p>
@@ -30,8 +30,11 @@ function renderBillCard(billData) {
   billList.appendChild(card);
 }
 
-
-bill.load();
+// Carrega as contas do localStorage e renderiza na tela
+function loadAndRenderBills() {
+  const bills = bill.getAll();
+  bills.forEach(renderBillCard);
+}
 
 newBillBtn.addEventListener("click", () => {
   openModal(modal);
@@ -58,24 +61,10 @@ form.addEventListener("submit", (event) => {
   };
 
   bill.save(billModel);
-  // ===== CARD ========
-  const card = document.createElement("div");
-  card.classList.add("invoice-card");
-
-  card.innerHTML = `
-      <p class="bill-id">${generatedID}</p>
-    <p class="bill-due-date">Vencimento ${new Date(
-      billDueDate
-    ).toLocaleDateString("pt-BR")}</p>
-    <p class="bill-description">${billDescription}</p>
-    <p class="bill-amount">R$ ${Number(billAmount).toFixed(2)}</p>
-    <div class="bill-type ${billType === "payable" ? "pendente" : "pago"}">
-      ${billType === "receivable" ? "pendente" : "recebido"}
-    </div>
-  `;
-
-  billList.appendChild(card);
+  renderBillCard(billModel); // Reutilizando a função para criar o novo card
 
   closeModal(modal);
   form.reset();
 });
+
+loadAndRenderBills(); // Chama a função para carregar os dados ao iniciar a página
