@@ -50,6 +50,12 @@ header {
   align-items: center;
 }
 
+.section-left {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
 .section-left h1 {
   font-size: 2rem;
   color: white;
