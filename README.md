@@ -5,9 +5,7 @@ de me desenvolver mais no desenvolvimento web, já que sou iniciante em programa
 
 No momento os dados ficam armazenados no **localStorage**, mas futuramente serão migrados para um DB
 
-🌐 Deploy: **https://financedotum.online**  
-🌐 Site: **https://financedotum.online**
-
+🌐 Deploy: **https://financedotum.online**
 (redirect da Hostinger para a aplicação publicada na Vercel)
 
 Este projeto também faz parte da minha preparação para a  
@@ -32,4 +30,7 @@ npm install
 
 ## executando em produção/local
 
-npm run dev -> (sobe o servidor local [http://localhost:3000] e fica observando com nodemon)
+```
+npm run dev
+(sobe o servidor local [http://localhost:3000] e fica observando com nodemon)
+```
