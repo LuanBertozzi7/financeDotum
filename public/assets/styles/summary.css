@@ -1,10 +1,10 @@
 .summary-toggle {
-  margin-left: 0.8rem;
+  margin-left: 0.2rem;
   background: #2f3358;
   color: white;
   border: 1px solid #373b53;
   border-radius: 999px;
-  padding: 0.6rem 1rem;
+  padding: 0.7rem 1.1rem;
   cursor: pointer;
 }
 .summary-toggle:hover {
@@ -88,13 +88,14 @@
   body {
     padding: 1rem;
   }
-  header {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
+  .page-header {
+    align-items: stretch;
   }
-  .section-left {
-    flex-wrap: wrap;
-    align-items: flex-start;
+  .header-stats {
+    gap: 0.8rem;
+  }
+  .header-actions {
+    justify-content: flex-start;
   }
   #bill-list {
     justify-content: center;

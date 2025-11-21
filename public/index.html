@@ -14,43 +14,43 @@
   </head>
   <body>
     <div id="container">
-      <header>
-        <nav class="section-left">
+      <header class="page-header">
+        <div class="header-title">
           <h1>Finance</h1>
-          <p><div class="receivable-quantity">XX</div> a receber</p>
-          <p><div class="payable-quantity">YY</div> a pagar</p>
-          <p><div class="total-quantity">ZZ</div>no total</p>
-        </nav>
-        <nav class="section-right">
+        </div>
+        <div class="header-stats">
+          <p><span class="receivable-quantity">XX</span> a receber</p>
+          <p><span class="payable-quantity">YY</span> a pagar</p>
+          <p><span class="total-quantity">ZZ</span> no total</p>
+        </div>
+        <div class="header-actions">
           <button class="new-bill">nova conta</button>
           <button class="summary-toggle" aria-expanded="false">Resumo</button>
-        </nav>
+        </div>
       </header>
 
-<aside class="summary-panel" hidden>
-  <div class="summary-header">
-    <h2>Resumo</h2>
-    <button class="summary-close" aria-label="Fechar resumo">×</button>
-  </div>
-  <div class="summary-grid">
-    <div class="summary-card payable">
-      <p>valor a pagar</p>
-      <strong class="summary-payable">R$ 0,00</strong>
-    </div>
-    <div class="summary-card receivable">
-      <p>valor para receber</p>
-      <strong class="summary-receivable">R$ 0,00</strong>
-    </div>
-    <div class="summary-card balance">
-      <p>Saldo</p>
-      <strong class="summary-balance">R$ 0,00</strong>
-      <small class="summary-balance-status">—</small>
-    </div>
-  </div>
-</aside>
-      <main id="bill-list">
-        
-      </main>
+      <aside class="summary-panel" hidden>
+        <div class="summary-header">
+          <h2>Resumo</h2>
+          <button class="summary-close" aria-label="Fechar resumo">×</button>
+        </div>
+        <div class="summary-grid">
+          <div class="summary-card payable">
+            <p>valor a pagar</p>
+            <strong class="summary-payable">R$ 0,00</strong>
+          </div>
+          <div class="summary-card receivable">
+            <p>valor para receber</p>
+            <strong class="summary-receivable">R$ 0,00</strong>
+          </div>
+          <div class="summary-card balance">
+            <p>Saldo</p>
+            <strong class="summary-balance">R$ 0,00</strong>
+            <small class="summary-balance-status">—</small>
+          </div>
+        </div>
+      </aside>
+      <main id="bill-list"></main>
       <div class="modal" id="modal">
         <div class="modal-content">
           <h2>Finance</h2>
