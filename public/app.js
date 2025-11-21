@@ -1,17 +1,21 @@
-import bill from "./utils/bill.js";
+import bill from "./utils/bills.js";
 import { openModal, closeModal } from "./utils/ui.js";
+import { formatCurrency, formatDate } from "./utils/helpers.js";
 
-const modal = document.getElementById("modal");
+// header
+const receivableQuantity = document.querySelector(".receivable-quantity");
+const payableQuantity = document.querySelector(".payable-quantity");
+const totalQuantity = document.querySelector(".total-quantity");
+// buttons
 const newBillBtn = document.querySelector(".new-bill");
 const cancelBtn = document.querySelector(".cancel");
-const form = document.getElementById("new-account-form");
+// general
+const modal = document.getElementById("modal");
 const billCardList = document.getElementById("bill-list");
-// div - quantidade de contas pagar/receber
-const payableQuantity = document.querySelector(".payable-quantity");
-const receivableQuantity = document.querySelector(".receivable-quantity");
-const totalQuantity = document.querySelector(".total-quantity");
-// summary
+const form = document.getElementById("new-account-form");
+// summary button
 const summaryToggle = document.querySelector(".summary-toggle");
+// summary general
 const summaryPanel = document.querySelector(".summary-panel");
 const summaryClose = document.querySelector(".summary-close");
 const summaryPayable = document.querySelector(".summary-payable");
@@ -19,52 +23,35 @@ const summaryReceivable = document.querySelector(".summary-receivable");
 const summaryBalance = document.querySelector(".summary-balance");
 const summaryBalanceStatus = document.querySelector(".summary-balance-status");
 
-// formatação de valores $$
-function formatCurrency(value) {
-  return Number(value || 0).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    minimumFractionDigits: 2,
-  });
-}
-
 function renderBillCard(billData) {
-  // criando a div
   const card = document.createElement("div");
   card.classList.add("invoice-card");
 
-  // define se é conta a pagar ou receber
   const isPayable = billData.type === "payable";
   const statusClass = isPayable ? "payable" : "receivable";
   const statusText = isPayable ? "Pagar" : "Receber";
 
-  // data formatada
-  const formattedDueDate = new Date(billData.dueDate).toLocaleDateString(
-    "pt-BR"
-  );
-  // valor formatado
-  const formattedAmount = Number(billData.amount).toFixed(2);
+  const formattedDueDate = formatDate(billData.dueDate);
+  const formattedAmount = formatCurrency(billData.amount);
 
   card.innerHTML = `
     <p class="bill-id">${billData.id}</p>
     <p class="bill-description">${billData.description}</p>
-    <p class="bill-due-date">Vencimento: ${formattedDueDate}</p>
-    <p class="bill-amount">R$ ${formattedAmount}</p>
+    <p class="bill-due-date">${formattedDueDate}</p>
+    <p class="bill-amount"> ${formattedAmount}</p>
     <div class="card-footer">
-    <div class="bill-type ${statusClass}">
-      ${statusText}
+      <div class="bill-type ${statusClass}">
+        ${statusText}
+      </div>
     </div>
-     </div>
   `;
 
   const footer = card.querySelector(".card-footer");
-  // criando botão de apagar card
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("delete-bill");
   deleteButton.setAttribute("aria-label", "Excluir essa conta?");
   deleteButton.innerHTML = `<i class="bx bx-trash"></i>`;
 
-  // adicionando comportamento de clique da lixeira
   deleteButton.addEventListener("click", () => {
     const confirmDelete = window.confirm(
       "Tem certeza que deseja excluir essa conta?"
@@ -76,30 +63,27 @@ function renderBillCard(billData) {
   });
   footer.appendChild(deleteButton);
   billCardList.appendChild(card);
-
-  // adicionando a quantidade no header
 }
 
-// Carrega as contas do localStorage e renderiza na tela
-function loadAndRenderBills() {
+function renderBills() {
+  // clear list then render all
+  billCardList.innerHTML = "";
   const bills = bill.getAll();
   bills.forEach(renderBillCard);
 }
 
-// funções responsaveis por renderizações
 function renderSummary() {
   const { payable, receivable, balance } = bill.getTotals();
   summaryPayable.textContent = formatCurrency(payable);
   summaryReceivable.textContent = formatCurrency(receivable);
   summaryBalance.textContent = formatCurrency(balance);
 
-  let statusText = "Equilibrado",
-    statusClass = "summary-neutral";
+  let statusText = "Equilibrado";
+  let statusClass = "summary-neutral";
   if (balance > 0) {
     statusText = "Sobra";
     statusClass = "summary-positive";
-  }
-  if (balance < 0) {
+  } else if (balance < 0) {
     statusText = "Falta";
     statusClass = "summary-negative";
   }
@@ -107,6 +91,7 @@ function renderSummary() {
   summaryBalanceStatus.textContent = statusText;
   summaryBalanceStatus.className = `summary-balance-status ${statusClass}`;
 }
+
 function openSummary() {
   summaryPanel.hidden = false;
   summaryToggle.setAttribute("aria-expanded", "true");
@@ -115,6 +100,7 @@ function closeSummary() {
   summaryPanel.hidden = true;
   summaryToggle.setAttribute("aria-expanded", "false");
 }
+
 summaryToggle.addEventListener("click", () => {
   const isOpen = summaryToggle.getAttribute("aria-expanded") === "true";
   isOpen ? closeSummary() : openSummary();
@@ -122,9 +108,9 @@ summaryToggle.addEventListener("click", () => {
 summaryClose.addEventListener("click", closeSummary);
 
 function renderPageQuantity() {
-  totalQuantity.innerHTML = bill.getQuantityOfBills(); // o total
-  payableQuantity.innerHTML = bill.getQuantityOfBillsType("payable"); // a pagar
-  receivableQuantity.innerHTML = bill.getQuantityOfBillsType("receivable"); // a receber
+  totalQuantity.textContent = bill.getQuantityOfBills();
+  payableQuantity.textContent = bill.getQuantityOfBillsType("payable");
+  receivableQuantity.textContent = bill.getQuantityOfBillsType("receivable");
   renderSummary();
 }
 
@@ -153,16 +139,11 @@ form.addEventListener("submit", (event) => {
   };
 
   bill.save(billModel);
-  renderBillCard(billModel);
-
-  renderPageQuantity();
-
   closeModal(modal);
   form.reset();
+  renderBills();
+  renderPageQuantity();
 });
 
-// debug
-console.log(bill.getQuantityOfBills());
-
+renderBills();
 renderPageQuantity();
-loadAndRenderBills(); // Chama a função para carregar os dados ao iniciar a página
