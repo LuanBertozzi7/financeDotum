@@ -38,7 +38,7 @@ body {
 
 #container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 2rem;
@@ -54,7 +54,7 @@ body {
 }
 
 .header-title h1 {
-  font-size: 2rem;
+  font-size: 2.4rem;
   color: white;
   margin-bottom: 0.2rem;
 }
@@ -63,7 +63,7 @@ body {
   display: flex;
   gap: 1.2rem;
   color: var(--text-color);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   flex-wrap: wrap;
 }
 
@@ -117,9 +117,9 @@ main {
 #bill-list {
   display: flex !important;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 2.4rem;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 }
 
 .bill-type {

@@ -31,15 +31,15 @@
 }
 .invoice-card {
   background-color: #252945 !important;
-  border-radius: 16px !important;
-  padding: 1.8rem 1.5rem 1.5rem !important;
-  width: 260px;
+  border-radius: 18px !important;
+  padding: 2rem 1.8rem 1.7rem !important;
+  width: 320px;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   text-align: center !important;
-  gap: 0.4rem;
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.45);
+  gap: 0.5rem;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.5);
   transition: transform 0.2s ease, box-shadow 0.2s ease,
     background-color 0.2s ease;
 }
@@ -54,19 +54,19 @@
   font-weight: bold;
   color: white;
   letter-spacing: 0.08em;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .invoice-card .bill-due-date,
 .invoice-card .bill-description {
   color: var(--text-color);
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin: 0.2rem 0;
 }
 
 .invoice-card .bill-amount {
   font-weight: 700;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: var(--paid-color);
   margin: 0.4rem 0;
 }
