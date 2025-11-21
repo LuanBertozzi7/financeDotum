@@ -23,8 +23,31 @@
         </nav>
         <nav class="section-right">
           <button class="new-bill">nova conta</button>
+          <button class="summary-toggle" aria-expanded="false">Resumo</button>
         </nav>
       </header>
+
+<aside class="summary-panel" hidden>
+  <div class="summary-header">
+    <h2>Resumo</h2>
+    <button class="summary-close" aria-label="Fechar resumo">×</button>
+  </div>
+  <div class="summary-grid">
+    <div class="summary-card payable">
+      <p>valor a pagar</p>
+      <strong class="summary-payable">R$ 0,00</strong>
+    </div>
+    <div class="summary-card receivable">
+      <p>valor para receber</p>
+      <strong class="summary-receivable">R$ 0,00</strong>
+    </div>
+    <div class="summary-card balance">
+      <p>Saldo</p>
+      <strong class="summary-balance">R$ 0,00</strong>
+      <small class="summary-balance-status">—</small>
+    </div>
+  </div>
+</aside>
       <main id="bill-list">
         
       </main>

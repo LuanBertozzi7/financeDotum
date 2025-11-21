@@ -10,6 +10,23 @@ const billCardList = document.getElementById("bill-list");
 const payableQuantity = document.querySelector(".payable-quantity");
 const receivableQuantity = document.querySelector(".receivable-quantity");
 const totalQuantity = document.querySelector(".total-quantity");
+// summary
+const summaryToggle = document.querySelector(".summary-toggle");
+const summaryPanel = document.querySelector(".summary-panel");
+const summaryClose = document.querySelector(".summary-close");
+const summaryPayable = document.querySelector(".summary-payable");
+const summaryReceivable = document.querySelector(".summary-receivable");
+const summaryBalance = document.querySelector(".summary-balance");
+const summaryBalanceStatus = document.querySelector(".summary-balance-status");
+
+// formatação de valores $$
+function formatCurrency(value) {
+  return Number(value || 0).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2,
+  });
+}
 
 function renderBillCard(billData) {
   // criando a div
@@ -55,6 +72,7 @@ function renderBillCard(billData) {
     if (!confirmDelete) return;
     bill.delete(billData.id);
     card.remove();
+    renderPageQuantity();
   });
   footer.appendChild(deleteButton);
   billCardList.appendChild(card);
@@ -68,8 +86,46 @@ function loadAndRenderBills() {
   bills.forEach(renderBillCard);
 }
 
+// funções responsaveis por renderizações
+function renderSummary() {
+  const { payable, receivable, balance } = bill.getTotals();
+  summaryPayable.textContent = formatCurrency(payable);
+  summaryReceivable.textContent = formatCurrency(receivable);
+  summaryBalance.textContent = formatCurrency(balance);
+
+  let statusText = "Equilibrado",
+    statusClass = "summary-neutral";
+  if (balance > 0) {
+    statusText = "Sobra";
+    statusClass = "summary-positive";
+  }
+  if (balance < 0) {
+    statusText = "Falta";
+    statusClass = "summary-negative";
+  }
+
+  summaryBalanceStatus.textContent = statusText;
+  summaryBalanceStatus.className = `summary-balance-status ${statusClass}`;
+}
+function openSummary() {
+  summaryPanel.hidden = false;
+  summaryToggle.setAttribute("aria-expanded", "true");
+}
+function closeSummary() {
+  summaryPanel.hidden = true;
+  summaryToggle.setAttribute("aria-expanded", "false");
+}
+summaryToggle.addEventListener("click", () => {
+  const isOpen = summaryToggle.getAttribute("aria-expanded") === "true";
+  isOpen ? closeSummary() : openSummary();
+});
+summaryClose.addEventListener("click", closeSummary);
+
 function renderPageQuantity() {
-  totalQuantity.innerHTML = bill.getQuantityOfBills();
+  totalQuantity.innerHTML = bill.getQuantityOfBills(); // o total
+  payableQuantity.innerHTML = bill.getQuantityOfBillsType("payable"); // a pagar
+  receivableQuantity.innerHTML = bill.getQuantityOfBillsType("receivable"); // a receber
+  renderSummary();
 }
 
 newBillBtn.addEventListener("click", () => {
@@ -98,6 +154,8 @@ form.addEventListener("submit", (event) => {
 
   bill.save(billModel);
   renderBillCard(billModel);
+
+  renderPageQuantity();
 
   closeModal(modal);
   form.reset();

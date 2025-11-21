@@ -2,6 +2,7 @@
 @import url(/assets/styles/modal.css);
 @import url(/assets/styles/invoice-card.css);
 @import url(/assets/styles/delete-bill.css);
+@import url(/assets/styles/summary.css);
 
 *,
 body {
@@ -22,6 +23,7 @@ body {
   --paid-color: #33d69f; /* PAGO */
   --pending-color: #ff8f00; /* PENDENTE */
   --draft-color: #373b53; /* RASCUNHO */
+  --card-bg: #252945; /* FUNDO DO CARD */
 }
 
 body {

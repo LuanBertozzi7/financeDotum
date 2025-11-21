@@ -1,0 +1,102 @@
+.summary-toggle {
+  margin-left: 0.8rem;
+  background: #2f3358;
+  color: white;
+  border: 1px solid #373b53;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+.summary-toggle:hover {
+  opacity: 0.9;
+}
+
+.summary-panel {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  width: min(360px, 90vw);
+  background: var(--card-bg);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  padding: 1.2rem;
+  z-index: 200;
+  animation: fadeIn 0.2s ease;
+}
+.summary-panel[hidden] {
+  display: none !important;
+}
+
+.summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.summary-close {
+  background: transparent;
+  color: var(--text-color);
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.summary-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+.summary-card {
+  background: #1f2340;
+  border: 1px solid #2f3358;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+}
+.summary-card p {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+.summary-card strong {
+  font-size: 1.4rem;
+  display: block;
+  margin-top: 0.2rem;
+}
+.summary-card.payable {
+  border-left: 4px solid var(--pending-color);
+}
+.summary-card.receivable {
+  border-left: 4px solid var(--paid-color);
+}
+.summary-card.balance {
+  border-left: 4px solid var(--accent-color);
+}
+.summary-balance-status {
+  color: var(--text-color);
+}
+.summary-positive {
+  color: var(--paid-color);
+}
+.summary-negative {
+  color: #ff6b6b;
+}
+.summary-neutral {
+  color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  header {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  .section-left {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  #bill-list {
+    justify-content: center;
+  }
+}

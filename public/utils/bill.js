@@ -1,44 +1,47 @@
+const getBillsFromStorage = () => {
+  return JSON.parse(localStorage.getItem("bills")) || [];
+};
+
 const bill = {
-  /**
-   * o arquivo bill.js é para obtermos dados básicos através de funções, sem afetar a organização!
-   *
-   * ===========  //  ===========
-   *
-   * @returns getAll() -> todas as contas salvas - LocalStorage
-   * @returns save(param) -> salvar a nova conta - LocalStorage
-   * @returns delete(param) -> deletar a conta - LocalStorage
-   * @returns generateID() -> gera e retorna um ID aleatório (#QD2942)
-   *
-   * ============  // ===========
-   */
   getAll() {
-    const data = localStorage.getItem("bills");
-    return data ? JSON.parse(data) : [];
+    return getBillsFromStorage();
   },
-
   getQuantityOfBills() {
-    const data = localStorage.getItem("bills");
-    return data ? JSON.parse(data).length : 0;
+    return this.getAll().length;
   },
-
+  getQuantityOfBillsType(type) {
+    const bills = getBillsFromStorage();
+    const normalized = type.toLowerCase();
+    return bills.filter((bill) => bill.type?.toLowerCase() === normalized)
+      .length;
+  },
+  getTotals() {
+    const bills = getBillsFromStorage();
+    const { payable, receivable } = bills.reduce(
+      (acc, bill) => {
+        const amount = Number(bill.amount) || 0;
+        if (bill.type === "payable") acc.payable += amount;
+        if (bill.type === "receivable") acc.receivable += amount;
+        return acc;
+      },
+      { payable: 0, receivable: 0 }
+    );
+    const balance = receivable - payable; // >0 sobra, <0 falta
+    return { payable, receivable, balance };
+  },
+  getTotalByType(type) {
+    const { payable, receivable } = this.getTotals();
+    return type === "payable" ? payable : receivable;
+  },
   save(newBill) {
-    // pega todas as contas existente
-    const bills = this.getAll();
-    // adiciona a conta nova que foi recebida
+    const bills = getBillsFromStorage();
     bills.push(newBill);
-    // salva novamente no local storage
     localStorage.setItem("bills", JSON.stringify(bills));
   },
-
   delete(id) {
-    // pega todas as contas
-    const bills = this.getAll();
-    // filtrar removendo a conta com o id
-    const filtered = bills.filter((bill) => bill.id !== id);
-    // salva no localStorage
-    localStorage.setItem("bills", JSON.stringify(filtered));
+    const bills = getBillsFromStorage().filter((bill) => bill.id !== id);
+    localStorage.setItem("bills", JSON.stringify(bills));
   },
-
   generateID() {
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const letterPart =
